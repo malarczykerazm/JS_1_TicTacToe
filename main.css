@@ -9,34 +9,68 @@ table {
   width: 551px; 
 }
 td {
-  height: 175px;
-  width: 175px;
+  height: 150px;
+  width: 150px;
   text-align: center;
-  font-size: 120px;
-  border: 2px solid #ccc55c;
-  -webkit-border-radius: 5px;
+  font-size: 110px;
+  border: 3px solid #2D2D2D;
 }
-td:hover {
-  height: 175px;
-  width: 175px;
+td:hover::before {
+  height: 150px;
+  width: 150px;
   text-align: center;
-  font-size: 120px;
-  border: 2px solid #ccc55c;
-  background:#2534ff;
-  -webkit-border-radius: 5px;
+  font-size: 110px;
+  border: 3px solid #2D2D2D;
+  background:#2D2D2D;
+  cursor: hand;
+  content: attr(data-hover);
+  font: 100;
+}
+td:hover::after {
+  height: 150px;
+  width: 150px;
+  text-align: center;
+  font-size: 110px;
+  background:#2D2D2D;
   cursor: hand;
 }
-#players {
+
+#playerSpace {
   margin-left:auto; 
   margin-right:auto;
   padding: 20px 10px 10px 10px;
   width: 511px; 
   text-align: left;
 }
-#players > div {
+#playerSpace > div {
   display: inline-block;
-  padding-right: 25px;
   color: #ccc55c;
+  text-align: left;
+  margin-left: 0px;
+}
+#moveHistorySpace {
+  margin-left:auto; 
+  margin-right:auto;
+  padding: 20px 10px 10px 10px;
+  width: 511px; 
+  text-align: left;
+}
+#moveHistorySpace > div {
+  display: inline-block;
+  color: #2D2D2D;
+  text-align: left;
+  margin-left: 0px;
+  padding-left: 0px;
+}
+#moveHistorySpace > output {
+  height: auto;
+  width: 100%;
+  display: inline-block;
+  color: #2D2D2D;
+  text-align: left;
+  font-family: Courier New, Courier, monospace;
+  border: 1px solid;
+  padding: 7px;
 }
 .button {
   float: right;
