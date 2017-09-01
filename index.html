@@ -1,42 +1,54 @@
 <html>
+
 <head>
   <title>TicTacToe</title>
-<link rel="stylesheet" href=".\main.css" type="text/css">
+  <link rel="stylesheet" href=".\main.css" type="text/css">
 </head>
-<body onload="hello();">  
-  <h2><div id="hello"></div></h2>
-  
-  <div id="playerSpace">
-    <div class="">next player:</div>
-    <div id="nextPlayer" class="" style="font-weight: bold"></div>
-    <input type="button" class="button" value="Start a new game">
-    <br>
-    <div class="">number of performed move:</div>
-    <div id="numberOfPerformedMoves" class="" style="font-weight: bold"></div>
-    <input type="button" class="button" value="Undo the move" onclick="undoMove();">
-  </div>
-  <table>
-    <tr>
-      <td id="11"></td>
-      <td id="12"></td>
-      <td id="13"></td>
-    </tr>
-    <tr>
-      <td id="21"></td>
-      <td id="22"></td>
-      <td id="23"></td>
-    </tr>
-    <tr>
-      <td id="31"></td>
-      <td id="32"></td>
-      <td id="33"></td>
-    </tr>
-  </table>
-  
+
+<body onload="hello();">
+  <div class="container">
+    <div class="top">
+      <h2><small><font color="grey">Welcome to</font></small>
+        <br> tic tac toe
+        <br> <small><font color="grey">let's play a game</font></small></h2>
+    </div>
+
+    <div id="header" class="top">
+      <div>next player:</div>
+      <div id="nextPlayer" class="" style="font-weight: bold"></div>
+      <input type="button" class="button" value="Reset game" onclick="gameInit();">
+      <br>
+      <div>number of performed move:</div>
+      <div id="numberOfPerformedMoves" class="" style="font-weight: bold"></div>
+      <input type="button" class="button" value="Undo the move" onclick="undoMove();">
+    </div>
+    <div class="col">
+      <table>
+        <tr>
+          <td id="11"></td>
+          <td id="12"></td>
+          <td id="13"></td>
+        </tr>
+        <tr>
+          <td id="21"></td>
+          <td id="22"></td>
+          <td id="23"></td>
+        </tr>
+        <tr>
+          <td id="31"></td>
+          <td id="32"></td>
+          <td id="33"></td>
+        </tr>
+      </table>
+    </div>
+    <div id="moveHistorySpace" class="col">
+      <div>Move history:</div><br>
+      <output id="moveHistory" class="" type="text">
+        <font color="gray">no moves performed so far</font>
+      </output>
+    </div>
+
+    <script src=".\src\game.js" type="text/javascript"></script>
 </body>
-<script src=".\src\game.js" type="text/javascript"></script>
-<div id="moveHistorySpace">
-<div>Move history:</div><br>
-<output id="moveHistory" class="" type="text"><font color="gray">no moves performed so far</font></output>
-</div>
+
 </html>
