@@ -5,23 +5,30 @@
   <link rel="stylesheet" href=".\main.css" type="text/css">
 </head>
 
-<body onload="hello();">
+<body onload="begin();">
   <div class="container">
     <div class="top">
       <h2><small><font color="grey">Welcome to</font></small>
         <br> tic tac toe
         <br> <small><font color="grey">let's play a game</font></small></h2>
+
+
     </div>
 
-    <div id="header" class="top">
+    <div id="header">
+      <input type="button" class="button" value="Start new competition" onclick="gameInit();">
+      <input type="button" class="button" value="Reset this game" onclick="gameInit();">
+      <input type="button" class="button" value="Undo last move" onclick="undoMove();">
+      <br>
       <div>next player:</div>
       <div id="nextPlayer" class="" style="font-weight: bold"></div>
-      <input type="button" class="button" value="Reset game" onclick="gameInit();">
       <br>
       <div>number of performed move:</div>
       <div id="numberOfPerformedMoves" class="" style="font-weight: bold"></div>
-      <input type="button" class="button" value="Undo the move" onclick="undoMove();">
+      <div>
+      </div>
     </div>
+
     <div class="col">
       <table>
         <tr>
@@ -41,6 +48,7 @@
         </tr>
       </table>
     </div>
+
     <div id="moveHistorySpace" class="col">
       <div>Move history:</div><br>
       <output id="moveHistory" class="" type="text">
@@ -49,6 +57,7 @@
     </div>
 
     <script src=".\src\game.js" type="text/javascript"></script>
+    <script src=".\src\winner-checker.js" type="text/javascript"></script>
 </body>
 
 </html>
