@@ -1,6 +1,6 @@
 var numberOfMoves = 0,
-activePlayer = 'X',
-moveHistory = [];
+    activePlayer = 'X',
+    moveHistory = [];
 
 function gameInit() {
     moveHistory = [];
@@ -74,7 +74,24 @@ function singleMove(moveNumber, activePlayer, squareID) {
 }
 
 function undoMove() {
-    var square = document.getElementById(moveHistory.pop().squareID);
+    var squareID = moveHistory.pop().squareID;
+    var square = document.getElementById(squareID);
+
+    rowsToIgnore.splice(rowsToIgnore.indexOf(squareID.substring(0, 1)), 1);
+    columnsToIgnore.splice(columnsToIgnore.indexOf(squareID.substring(1, 2)), 1);
+    var whichDiagonal;
+    if (squareID = centralCoordinate) {
+        diagonalsToIgnore = [];
+    } else {
+        if (squareID.substring(0, 1) == squareID.substring(0, 1)) {
+            diagonalsToIgnore.splice(diagonalsToIgnore.indexOf(1), 1);
+
+        } else {
+            diagonalsToIgnore.splice(diagonalsToIgnore.indexOf(-1), 1);
+        }
+
+    }
+
     square.innerHTML = "";
     square.onclick = putChar;
     numberOfMoves--;
