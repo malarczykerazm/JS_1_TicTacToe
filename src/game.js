@@ -1,5 +1,5 @@
-numberOfMoves = 0;
-activePlayer = 'X';
+var numberOfMoves = 0,
+activePlayer = 'X',
 moveHistory = [];
 
 function gameInit() {
