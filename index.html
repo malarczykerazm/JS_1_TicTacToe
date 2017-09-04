@@ -7,28 +7,35 @@
 
 <body onload="begin();">
   <div class="container">
+
     <div class="top">
       <h2><small><font color="grey">Welcome to</font></small>
         <br> tic tac toe
         <br> <small><font color="grey">let's play a game</font></small></h2>
-
-
     </div>
 
-    <div id="header">
-      <input type="button" class="button" value="Start new competition" onclick="gameInit();">
-      <input type="button" class="button" value="Reset this game" onclick="gameInit();">
-      <input type="button" class="button" value="Undo last move" onclick="undoMove();">
-      <br>
-      <div>next player:</div>
-      <div id="nextPlayer" class="" style="font-weight: bold"></div>
-      <br>
-      <div>number of performed moves:</div>
-      <div id="numberOfPerformedMoves" class="" style="font-weight: bold"></div>
-      <div>
+    <div class="col">
+      Menu<br>
+      <input type="button" class="button" value="Start new competition" onclick="startNewCompetition();"><br>
+      <input type="button" class="button" value="Reset this game" onclick="gameInit();"><br>
+      <input type="button" class="button" value="Undo last move" onclick="undoMove();"><br>
+      <input type="button" class="button" value="Switch starting player" onclick="switchStarter();"><br><br>
+      Competition stats:<br>
+      <div id="stats">
+        X wins:
+        <div id="winsX"></div>
+        O wins:
+        <div id="winsO"></div>
+        Draws:
+        <div id="draws"></div>
+        Games:
+        <div id="games"></div>
       </div>
+      <div>
+        Next game<br>will be started by:
+      </div>
+      <div id="nextStarter"></div>
     </div>
-
     <div class="col">
       <table>
         <tr>
@@ -50,10 +57,17 @@
     </div>
 
     <div id="moveHistorySpace" class="col">
+      <div id="header">
+        <div>next player:</div>
+        <div id="nextPlayer" class="" style="font-weight: bold"></div>
+        <br>
+        <div>number of performed moves:</div>
+        <div id="numberOfPerformedMoves" class="" style="font-weight: bold"></div>
+      </div>
+      <br>
+      <br>
       <div>Move history:</div><br>
-      <output id="moveHistory" class="" type="text">
-        <font color="gray">no moves performed so far</font>
-      </output>
+      <output id="moveHistory" class="" type="text"></output>
     </div>
 
     <script src=".\src\game.js" type="text/javascript"></script>

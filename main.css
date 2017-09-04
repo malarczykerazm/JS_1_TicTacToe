@@ -11,6 +11,7 @@ table {
   width: auto; 
   height: auto; 
   text-align: center;
+  box-shadow: 10px 10px #2D2D2D;
 }
 
 td {
@@ -29,6 +30,15 @@ td:hover {
   cursor: hand;
 }
 
+td:hover:active {
+  cursor: wait;
+  box-shadow: 5px 5px #2D2D2D;
+}
+
+td:disabled {
+  cursor: wait;
+}
+
 h2 {
   padding-top: 0px;
   line-height: 75%;
@@ -39,7 +49,7 @@ h2 {
 #header {
   margin-left:auto; 
   margin-right:auto;
-  width: 50%; 
+  width: 45%; 
   text-align: left;
 }
 
@@ -71,7 +81,7 @@ h2 {
 
 #moveHistorySpace > output {
   height: auto;
-  width: 100%;
+  width: 80%;
   text-align: left;
   font-family: Courier New, Courier, monospace;
   border: 1px solid;
@@ -80,17 +90,34 @@ h2 {
   display: inline-block;
 }
 
+#stats {
+  width: 100%;
+  border: 1px solid;
+  margin-top: 5px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+#stats > div {
+  font-weight: bold;
+  margin: 0px;
+}
+#nextStarter {
+  font-weight: bold;
+  border: 1px solid;
+}
+
 .container{
   width: 100%;
   height: 100%;
-  border: 1px;
 }
 
 .top{
   height: auto;
-  width: auto;
-  border: 1px;
+  width: 85%;
 }
+
 .col{
   display: inline-block;
   vertical-align: top;
@@ -98,11 +125,17 @@ h2 {
 }
 
 .button {
-  display: inline-block;
-  border: 2px solid #2D2D2D;
+  width: 100%;
+  border: -1px solid #2D2D2D;
   background: #BCBCBC;
   color: #2D2D2D;
   vertical-align: top;
+  line-height: 130%;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  margin-left: 0px;
+  margin-right: 0px;
+  font-weight: bold;
 }
 
 .button:hover {

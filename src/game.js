@@ -1,14 +1,25 @@
 var numberOfMoves = 0,
-    activePlayer = 'X',
+    nextStarter,
+    activePlayer,
     moveHistory = [];
+
+function startNewCompetition() {
+    numberOfGames = 0;
+    numberOfWinsX = 0;
+    numberOfWinsO = 0;
+    numberOfDraws = 0;
+    nextStarter = 'X';
+    gameInit();
+}
 
 function gameInit() {
     moveHistory = [];
     numberOfMoves = 0;
-    activePlayer = 'X';
+    activePlayer = nextStarter;
     displayMoveHistory();
     displayNumberOfMoves();
     displayActivePlayer();
+    displayStatsAndNextStarter();
     generateEmptyBoard();
 }
 
@@ -44,15 +55,7 @@ function generateEmptyBoard() {
 }
 
 function begin() {
-    gameInit();
-}
-
-function switchActivePlayer() {
-    if (numberOfMoves % 2 == 0) {
-        activePlayer = 'X';
-    } else {
-        activePlayer = 'O';
-    }
+    startNewCompetition();
 }
 
 putChar = function () {
@@ -74,16 +77,39 @@ function singleMove(moveNumber, activePlayer, squareID) {
 }
 
 function undoMove() {
-    if(moveHistory.length > 0) {
-    var removedMove = moveHistory.pop();
-    var squareID = removedMove.squareID;
-    var square = document.getElementById(removedMove.squareID);
-    square.innerHTML = "";
-    square.onclick = putChar;
-    numberOfMoves--;
-    switchActivePlayer();
-    displayActivePlayer();
-    displayNumberOfMoves();
-    displayMoveHistory();
+    if (moveHistory.length > 0) {
+        var removedMove = moveHistory.pop();
+        var squareID = removedMove.squareID;
+        var square = document.getElementById(removedMove.squareID);
+        square.innerHTML = "";
+        square.onclick = putChar;
+        numberOfMoves--;
+        switchActivePlayer();
+        displayActivePlayer();
+        displayNumberOfMoves();
+        displayMoveHistory();
+    }
+}
+
+function switchStarter() {
+    if (nextStarter == 'X') {
+        nextStarter = 'O'
+    } else {
+        if (nextStarter == 'O') {
+            nextStarter = 'X'
+        }
+    }
+    displayStatsAndNextStarter();
+    gameInit();
+}
+
+function switchActivePlayer() {
+    if (activePlayer == 'X') {
+        activePlayer = 'O'
+        return activePlayer;
+    }
+    if (activePlayer == 'O') {
+        activePlayer = 'X'
+        return activePlayer;
     }
 }
