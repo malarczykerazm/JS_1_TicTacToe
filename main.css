@@ -2,7 +2,10 @@ body {
   text-align: center;
   font-size: 20px;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  background-color: #CCFEBB;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#CCFEBB), to(#FFFFFF));
+  background-image: -webkit-linear-gradient(top, start-color, end-color);
+  background-image: -moz-linear-gradient(top, start-color, end-color);
+  background-image: linear-gradient(to bottom, start-color, end-color);
 }
 
 table {
@@ -12,6 +15,7 @@ table {
   height: auto; 
   text-align: center;
   box-shadow: 10px 10px #2D2D2D;
+  -webkit-border-radius: 20px;
 }
 
 td {
@@ -19,6 +23,7 @@ td {
   width: 150px;
   font-size: 110px;
   border: 3px solid #2D2D2D;
+  -webkit-border-radius: 20px;
 }
 
 td:hover {
@@ -88,6 +93,7 @@ h2 {
   padding: 7px;
   margin: 0px;
   display: inline-block;
+  -webkit-border-radius: 10px;
 }
 
 #stats {
@@ -98,6 +104,7 @@ h2 {
   margin-left: 0px;
   margin-right: 0px;
   line-height: 100%;
+  -webkit-border-radius: 10px;
 }
 
 #stats > div {
@@ -107,6 +114,7 @@ h2 {
 #nextStarter {
   font-weight: bold;
   border: 1px solid;
+  -webkit-border-radius: 10px;
 }
 
 .container{
@@ -127,16 +135,17 @@ h2 {
 
 .button {
   width: 100%;
-  border: 1px solid green;
+  border: -1px solid green;
   background: #77FD77;
   color: #2D2D2D;
   vertical-align: top;
-  line-height: 173%;
+  line-height: 160%;
   margin-top: 2px;
   margin-bottom: 2px;
   margin-left: 0px;
   margin-right: 0px;
   font-weight: bold;
+  -webkit-border-radius: 10px;
 }
 
 .button:hover {
