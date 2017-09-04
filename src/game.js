@@ -3,6 +3,10 @@ var numberOfMoves = 0,
     activePlayer,
     moveHistory = [];
 
+function begin() {
+    startNewCompetition();
+}
+
 function startNewCompetition() {
     numberOfGames = 0;
     numberOfWinsX = 0;
@@ -54,12 +58,9 @@ function generateEmptyBoard() {
     }
 }
 
-function begin() {
-    startNewCompetition();
-}
-
 putChar = function () {
     this.innerHTML = activePlayer;
+    this.className = activePlayer;
     numberOfMoves++;
     moveHistory.push(new singleMove(numberOfMoves, activePlayer, this.id));
     checkIfEndOfGame(activePlayer);
@@ -100,7 +101,6 @@ function switchStarter() {
         }
     }
     displayStatsAndNextStarter();
-    gameInit();
 }
 
 function switchActivePlayer() {

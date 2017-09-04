@@ -1,5 +1,5 @@
 // Karma configuration
-// Generated on Wed Aug 30 2017 12:16:09 GMT+0200 (W. Europe Daylight Time)
+// Generated on Mon Sep 04 2017 17:24:28 GMT+0200 (W. Europe Daylight Time)
 
 module.exports = function(config) {
   config.set({
@@ -15,9 +15,9 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'test-main.js',
-      {pattern: 'C:\projects\crash_course\workspaces\Etap 8\JS_1\src', included: false},
-      {pattern: 'C:\projects\crash_course\workspaces\Etap 8\JS_1\test', included: false}
+      'test/**/*.js',
+      'src/game.js',
+      'src/winner-checker.js'
     ],
 
 
@@ -52,7 +52,7 @@ module.exports = function(config) {
 
 
     // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: false,
+    autoWatch: true,
 
 
     // start these browsers

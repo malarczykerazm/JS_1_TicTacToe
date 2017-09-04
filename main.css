@@ -97,6 +97,7 @@ h2 {
   margin-bottom: 0px;
   margin-left: 0px;
   margin-right: 0px;
+  line-height: 105%;
 }
 
 #stats > div {
@@ -141,4 +142,14 @@ h2 {
 .button:hover {
   background: grey;
   cursor: hand;
+}
+
+.X {
+  color: red;
+  cursor: default;
+}
+
+.O {
+  color: blue;
+  cursor: default;
 }
