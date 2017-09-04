@@ -7,7 +7,6 @@ function begin() {
 }
 
 function startNewCompetition() {
-    numberOfGames = 0;
     numberOfWinsX = 0;
     numberOfWinsO = 0;
     numberOfDraws = 0;
@@ -19,10 +18,11 @@ function gameInit() {
     board = [["", "", ""], ["", "", ""], ["", "", ""]];
     moveHistory = [];
     displayMoveHistory();
-    displayNumberOfMoves(0);
+    displayNumberOfMoves(moveHistory.length);
     displayActivePlayer(nextStarter);
     displayStatsAndNextStarter();
     generateEmptyBoard();
+    document.getElementById("moveUndo").disabled = false;
 }
 
 function displayActivePlayer(activePlayer) {
@@ -93,32 +93,27 @@ function undoMove() {
     }
 }
 
-function switchStarter() {
-    if (nextStarter == 'X') {
-        nextStarter = 'O'
-    } else {
-        if (nextStarter == 'O') {
-            nextStarter = 'X'
-        }
-    }
-    displayStatsAndNextStarter();
-    if (moveHistory.length == 0) {
-        displayActivePlayer(nextStarter);
-    }
-    return nextStarter;
-}
-
 function switchActivePlayer(currentActivePlayer) {
     if (currentActivePlayer == 'X') {
-        activePlayer = 'O';
-        return activePlayer;
-    }
-    if (currentActivePlayer == 'O') {
-        activePlayer = 'X';
-        return activePlayer;
-    }
-    if (currentActivePlayer == undefined) {
-        activePlayer = 'X';
-        return activePlayer;
+        return 'O';
+    } else if (currentActivePlayer == 'O') {
+        return 'X';
+    } else {
+        return 'X';
     }
 }
+    
+    function switchStarter() {
+        if (nextStarter == 'X') {
+            nextStarter = 'O'
+        } else {
+            if (nextStarter == 'O') {
+                nextStarter = 'X'
+            }
+        }
+        displayStatsAndNextStarter();
+        if (moveHistory.length == 0) {
+            displayActivePlayer(nextStarter);
+        }
+        return nextStarter;
+    }

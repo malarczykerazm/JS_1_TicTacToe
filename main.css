@@ -158,6 +158,10 @@ h2 {
   cursor: wait;
 }
 
+.button:disabled {
+  background: grey;
+}
+
 .X {
   color: #005EFF;
   cursor: default;

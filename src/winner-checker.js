@@ -67,8 +67,8 @@ function checkIfEndOfGame(playerChar) {
                 increaseNumberOfWins(playerChar);
                 disableTheBoard();
                 displayStatsAndNextStarter();
-                setTimeout(function () { window.alert("Player " + playerChar + " won on row " + i + "!") }, 10);
-                setTimeout(function () { gameInit() }, 10);
+                document.getElementById("moveUndo").disabled = true;
+                setTimeout(function () { window.alert("Player " + playerChar + " won on row " + i + "!") }, 1);
                 return;
             }
         }
@@ -77,8 +77,8 @@ function checkIfEndOfGame(playerChar) {
                 increaseNumberOfWins(playerChar);
                 disableTheBoard();
                 displayStatsAndNextStarter();
-                setTimeout(function () { alert("Player " + playerChar + " won on column " + i + "!") }, 10);
-                setTimeout(function () { gameInit() }, 10);
+                document.getElementById("moveUndo").disabled = true;
+                setTimeout(function () { alert("Player " + playerChar + " won on column " + i + "!") }, 1);
                 return;
             }
         }
@@ -87,8 +87,8 @@ function checkIfEndOfGame(playerChar) {
                 increaseNumberOfWins(playerChar);
                 disableTheBoard();
                 displayStatsAndNextStarter();
-                setTimeout(function () { window.alert("Player " + playerChar + " won on diagonal!") }, 10);
-                setTimeout(function () { gameInit() }, 10);
+                document.getElementById("moveUndo").disabled = true;
+                setTimeout(function () { window.alert("Player " + playerChar + " won on diagonal!") }, 1);
                 return;
             }
         }
@@ -96,8 +96,8 @@ function checkIfEndOfGame(playerChar) {
             numberOfDraws++;
             disableTheBoard();
             displayStatsAndNextStarter();
-            setTimeout(function () { window.alert("Draw!") }, 10);
-            setTimeout(function () { gameInit() }, 10);
+            document.getElementById("moveUndo").disabled = true;
+            setTimeout(function () { window.alert("Draw!") }, 1);
             return;
         }
         return;
