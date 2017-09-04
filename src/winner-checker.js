@@ -5,7 +5,8 @@ var centralCoordinate = "22",
     numberOfGames = 0;
 
 function getContentById(id) {
-    return document.getElementById(id).innerHTML;
+    //return document.getElementById(id).innerHTML;
+    return board[id.substring(0, 1) - 1][id.substring(1) - 1];
 }
 
 function areCharsIdentical(a, b, c, playerChar) {
@@ -47,8 +48,8 @@ function increaseNumberOfWins(playerChar) {
 }
 
 function disableTheBoard() {
-    for (i = 1; i <= 3; i++) {
-        for (j = 1; j <= 3; j++) {
+    for (i = 1; i <= board.length; i++) {
+        for (j = 1; j <= board[i - 1].length; j++) {
             document.getElementById(i.toString() + j.toString()).onclick = null;
         }
     }
@@ -62,9 +63,9 @@ function displayStatsAndNextStarter() {
     document.getElementById("nextStarter").innerHTML = nextStarter;
 }
 
-function checkIfEndOfGame(playerChar) {
+function checkIfEndOfGame(playerChar, board) {
     if (numberOfMoves >= 5) {
-        for (var i = 1; i <= 3; i++) {
+        for (var i = 1; i <= board.length; i++) {
             if (checkRowsForIdenticalChars(i, playerChar)) {
                 increaseNumberOfWins(playerChar);
                 numberOfGames++;
@@ -75,7 +76,7 @@ function checkIfEndOfGame(playerChar) {
                 return;
             }
         }
-        for (var i = 1; i <= 3; i++) {
+        for (var i = 1; i <= board[0].length; i++) {
             if (checkColumnsForIdenticalChars(i, playerChar)) {
                 increaseNumberOfWins(playerChar);
                 numberOfGames++;
@@ -97,7 +98,7 @@ function checkIfEndOfGame(playerChar) {
                 return;
             }
         }
-        if (numberOfMoves == 9) {
+        if (numberOfMoves == board.length * board[0].length) {
             numberOfGames++;
             numberOfDraws++;
             disableTheBoard();

@@ -1,7 +1,8 @@
 var numberOfMoves,
     activePlayer,
     nextStarter,
-    moveHistory;
+    moveHistory,
+    board = [["", "", ""], ["", "", ""], ["", "", ""]];
 
 function begin() {
     startNewCompetition();
@@ -50,8 +51,9 @@ function displayEmptyMoveHistory() {
 }
 
 function generateEmptyBoard() {
-    for (i = 1; i <= 3; i++) {
-        for (j = 1; j <= 3; j++) {
+    for (i = 1; i <= board.length; i++) {
+        for (j = 1; j <= board[i - 1].length; j++) {
+            board[i - 1][j - 1] = "";
             document.getElementById(i.toString() + j.toString()).innerHTML = "";
             document.getElementById(i.toString() + j.toString()).onclick = putChar;
         }
@@ -59,16 +61,19 @@ function generateEmptyBoard() {
 }
 
 putChar = function () {
+    board[this.id.substring(0, 1) - 1][this.id.substring(1) - 1] = activePlayer;
     this.innerHTML = activePlayer;
     this.className = activePlayer;
     numberOfMoves++;
-    moveHistory.push(new singleMove(numberOfMoves, activePlayer, this.id));
+    var addedMove = new singleMove(numberOfMoves, activePlayer, this.id);
+    moveHistory.push(addedMove);
     this.onclick = null;
+    checkIfEndOfGame(activePlayer, board);
+    switchActivePlayer(activePlayer);
     displayActivePlayer();
     displayNumberOfMoves();
     displayMoveHistory();
-    checkIfEndOfGame(activePlayer);
-    switchActivePlayer(activePlayer);
+    return addedMove;
 }
 
 function singleMove(moveNumber, activePlayer, squareID) {
@@ -83,6 +88,7 @@ function undoMove() {
         var squareID = removedMove.squareID;
         var square = document.getElementById(removedMove.squareID);
         square.innerHTML = "";
+        board[squareID.substring(0, 1) - 1][squareID.substring(1) - 1] = "";
         square.onclick = putChar;
         numberOfMoves--;
         switchActivePlayer(activePlayer);
@@ -107,13 +113,11 @@ function switchStarter() {
 
 function switchActivePlayer(currentActivePlayer) {
     if (currentActivePlayer == 'X') {
-        currentActivePlayer = 'O'
-        activePlayer = currentActivePlayer;
-        return currentActivePlayer;
+        activePlayer = 'O';
+        return activePlayer;
     }
     if (currentActivePlayer == 'O') {
-        currentActivePlayer = 'X'
-        activePlayer = currentActivePlayer;
-        return currentActivePlayer;
+        activePlayer = 'X';
+        return activePlayer;
     }
 }
