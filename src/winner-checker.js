@@ -1,125 +1,44 @@
-var centralCoordinate = "22",
-    rowsToIgnore = [],
-    columnsToIgnore = [],
-    diagonalsToIgnore = [];
+var centralCoordinate = "22";
 
-function isRowFilled(row) {
-    for (var i = 1; i <= 3; i++) {
-        if (document.getElementById(row.toString() + i.toString()).innerHTML == "") {
-            return false;
-        }
-    }
-    return true;
+function getContentById(id) {
+    return document.getElementById(id).innerHTML;
 }
 
-function isColumnFilled(column) {
-    for (var i = 1; i <= 3; i++) {
-        if (document.getElementById(i.toString() + column.toString()).innerHTML == "") {
-            return false;
-        }
+function areCharsIdentical(a, b, c, playerChar) {
+    if (getContentById(a) == playerChar && getContentById(b) == playerChar && getContentById(c) == playerChar) {
+        return true;
     }
-    return true;
+    return false;
 }
 
-function isDiagonalFilled(diagonal) {
-    for (var i = -1; i < 2; i++) {
-        if (document.getElementById((2 + i).toString() + (2 + i * diagonal).toString()).innerHTML == "") {
-            return false;
-        }
+function checkRowsForIdenticalChars(row, playerChar) {
+    if (areCharsIdentical(row.toString() + "1", row.toString() + "2", row.toString() + "3", playerChar)) {
+        setTimeout(function () { window.alert("Player " + playerChar + " won on row " + row + "!") }, 10);
     }
-    return true;
 }
 
-findFilledRows = function (filledRows) {
-    for (var i = 1; i <= 3; i++) {
-        if (rowsToIgnore.indexOf(i) == -1) {
-            if (isRowFilled(i) == true) {
-                filledRows.push(i);
-            }
-        }
+function checkColumnsForIdenticalChars(column, playerChar) {
+    if (areCharsIdentical("1" + column.toString(), "2" + column.toString(), "3" + column.toString(), playerChar)) {
+        setTimeout(function () { window.alert("Player " + playerChar + " won on column " + column + "!") }, 10);
     }
-    return filledRows;
 }
 
-findFilledColumns = function (filledColumns) {
-    for (var i = 1; i <= 3; i++) {
-        if (columnsToIgnore.indexOf(i) == -1) {
-            if (isColumnFilled(i) == true) {
-                filledColumns.push(i);
-            }
-        }
+function checkDiagonalsForIdenticalChars(diagonal, playerChar) {
+    if (areCharsIdentical((2 - diagonal).toString() + "1", centralCoordinate, (2 + diagonal).toString() + "3", playerChar)) {
+        setTimeout(function () { window.alert("Player " + playerChar + " won on diagonal " + diagonal + "!") }, 10);
     }
-    return filledColumns;
 }
 
-findFilledDiagonals = function (filledDiagonals) {
-    for (var i = -1; i < 2; i += 2) {
-        if (diagonalsToIgnore.indexOf(i) == -1) {
-            if (isDiagonalFilled(i) == true) {
-                filledDiagonals.push(i);
-            }
+function checkIfEndOfGame(playerChar) {
+    if (numberOfMoves >= 5) {
+        for (var i = 1; i <= 3; i++) {
+            checkRowsForIdenticalChars(i, playerChar);
         }
-    }
-    return filledDiagonals;
-}
-
-function areCharsInRowIdentical(row) {
-    for (var i = 1; i <= 2; i++) {
-        if (document.getElementById(row.toString() + i.toString()).innerHTML !== document.getElementById(row.toString() + (i + 1).toString()).innerHTML) {
-            return false;
+        for (var i = 1; i <= 3; i++) {
+            checkColumnsForIdenticalChars(i, playerChar);
         }
-    }
-    return true;
-}
-
-function areCharsInColumnIdentical(column) {
-    for (var i = 1; i <= 2; i++) {
-        if (document.getElementById(i.toString() + column.toString()).innerHTML !== document.getElementById((i + 1).toString() + column.toString()).innerHTML) {
-            return false;
+        for (var i = -1; i <= 1; i+=2) {
+            checkDiagonalsForIdenticalChars(i, playerChar);
         }
-    }
-    return true;
-}
-
-function areCharsInDiagonalIdentical(diagonal) {
-    for (var i = -1; i < 2; i += 2) {
-        if (document.getElementById(centralCoordinate).innerHTML !== document.getElementById((2 + i).toString() + (2 + i * diagonal).toString()).innerHTML) {
-            return false;
-        }
-    }
-    return true;
-}
-
-function checkIfEndOfGame() {
-    if (numberOfMoves >= 3) {
-
-        var foundRows = [];
-        foundRows = findFilledRows(foundRows);
-        for (var i = 0; i < foundRows.length; i++) {
-            if (areCharsInRowIdentical(foundRows[i]) == true) {
-                window.alert("row " + foundRows[i] + " " + document.getElementById(foundRows[i].toString() + 1).innerHTML);
-            } else {
-                rowsToIgnore.push(foundRows[i]);
-            }
-        }
-        var foundColumns = [];
-        foundColumns = findFilledColumns(foundColumns);
-        for (var i = 0; i < foundColumns.length; i++) {
-            if (areCharsInColumnIdentical(foundColumns[i]) == true) {
-                window.alert("column " + foundColumns[i] + " " + document.getElementById(1 + foundColumns[i].toString()).innerHTML);
-            } else {
-                columnsToIgnore.push(foundColumns[i]);
-            }
-        }
-        var foundDiagonals = [];
-        foundDiagonals = findFilledDiagonals(foundDiagonals);
-        for (var i = 0; i < foundDiagonals.length; i++) {
-            if (areCharsInDiagonalIdentical(foundDiagonals[i]) == true) {
-                window.alert("diagonal " + foundDiagonals[i] + " " + document.getElementById(centralCoordinate).innerHTML);
-            } else {
-                diagonalsToIgnore.push(foundDiagonals[i]);
-            }
-        }
-        
     }
 }

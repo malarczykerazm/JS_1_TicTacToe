@@ -59,12 +59,12 @@ putChar = function () {
     this.innerHTML = activePlayer;
     numberOfMoves++;
     moveHistory.push(new singleMove(numberOfMoves, activePlayer, this.id));
+    checkIfEndOfGame(activePlayer);
     switchActivePlayer();
     displayActivePlayer();
     displayNumberOfMoves();
     displayMoveHistory();
     this.onclick = null;
-    checkIfEndOfGame();
 }
 
 function singleMove(moveNumber, activePlayer, squareID) {
@@ -74,24 +74,10 @@ function singleMove(moveNumber, activePlayer, squareID) {
 }
 
 function undoMove() {
-    var squareID = moveHistory.pop().squareID;
-    var square = document.getElementById(squareID);
-
-    rowsToIgnore.splice(rowsToIgnore.indexOf(squareID.substring(0, 1)), 1);
-    columnsToIgnore.splice(columnsToIgnore.indexOf(squareID.substring(1, 2)), 1);
-    var whichDiagonal;
-    if (squareID = centralCoordinate) {
-        diagonalsToIgnore = [];
-    } else {
-        if (squareID.substring(0, 1) == squareID.substring(0, 1)) {
-            diagonalsToIgnore.splice(diagonalsToIgnore.indexOf(1), 1);
-
-        } else {
-            diagonalsToIgnore.splice(diagonalsToIgnore.indexOf(-1), 1);
-        }
-
-    }
-
+    if(moveHistory.length > 0) {
+    var removedMove = moveHistory.pop();
+    var squareID = removedMove.squareID;
+    var square = document.getElementById(removedMove.squareID);
     square.innerHTML = "";
     square.onclick = putChar;
     numberOfMoves--;
@@ -99,4 +85,5 @@ function undoMove() {
     displayActivePlayer();
     displayNumberOfMoves();
     displayMoveHistory();
+    }
 }
