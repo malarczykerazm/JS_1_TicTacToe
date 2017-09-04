@@ -1,6 +1,4 @@
-var numberOfMoves,
-    activePlayer,
-    nextStarter,
+var nextStarter,
     moveHistory,
     board = [["", "", ""], ["", "", ""], ["", "", ""]];
 
@@ -18,21 +16,20 @@ function startNewCompetition() {
 }
 
 function gameInit() {
+    board = [["", "", ""], ["", "", ""], ["", "", ""]];
     moveHistory = [];
-    numberOfMoves = 0;
-    activePlayer = nextStarter;
     displayMoveHistory();
-    displayNumberOfMoves();
-    displayActivePlayer();
+    displayNumberOfMoves(0);
+    displayActivePlayer(nextStarter);
     displayStatsAndNextStarter();
     generateEmptyBoard();
 }
 
-function displayActivePlayer() {
+function displayActivePlayer(activePlayer) {
     document.getElementById("nextPlayer").innerHTML = activePlayer;
 }
 
-function displayNumberOfMoves() {
+function displayNumberOfMoves(numberOfMoves) {
     document.getElementById("numberOfPerformedMoves").innerHTML = numberOfMoves;
 }
 
@@ -46,32 +43,31 @@ function displayMoveHistory() {
     document.getElementById("moveHistory").innerHTML = stringMoveHistory;
 }
 
-function displayEmptyMoveHistory() {
-    document.getElementById("moveHistory").innerHTML = "";
-}
-
 function generateEmptyBoard() {
     for (i = 1; i <= board.length; i++) {
         for (j = 1; j <= board[i - 1].length; j++) {
-            board[i - 1][j - 1] = "";
-            document.getElementById(i.toString() + j.toString()).innerHTML = "";
+            document.getElementById(i.toString() + j.toString()).innerHTML = board[i - 1][j - 1];
             document.getElementById(i.toString() + j.toString()).onclick = putChar;
         }
     }
 }
 
 putChar = function () {
+    var activePlayer;
+    if (moveHistory.length == 0) {
+        activePlayer = nextStarter;
+    } else {
+        activePlayer = switchActivePlayer(moveHistory[moveHistory.length - 1].player);
+    }
     board[this.id.substring(0, 1) - 1][this.id.substring(1) - 1] = activePlayer;
     this.innerHTML = activePlayer;
     this.className = activePlayer;
-    numberOfMoves++;
-    var addedMove = new singleMove(numberOfMoves, activePlayer, this.id);
+    var addedMove = new singleMove(moveHistory.length + 1, activePlayer, this.id);
     moveHistory.push(addedMove);
     this.onclick = null;
-    checkIfEndOfGame(activePlayer, board);
-    switchActivePlayer(activePlayer);
-    displayActivePlayer();
-    displayNumberOfMoves();
+    checkIfEndOfGame(activePlayer);
+    displayActivePlayer(switchActivePlayer(activePlayer));
+    displayNumberOfMoves(moveHistory.length);
     displayMoveHistory();
     return addedMove;
 }
@@ -90,10 +86,8 @@ function undoMove() {
         square.innerHTML = "";
         board[squareID.substring(0, 1) - 1][squareID.substring(1) - 1] = "";
         square.onclick = putChar;
-        numberOfMoves--;
-        switchActivePlayer(activePlayer);
-        displayActivePlayer();
-        displayNumberOfMoves();
+        displayActivePlayer(switchActivePlayer(activePlayer));
+        displayNumberOfMoves(moveHistory.length);
         displayMoveHistory();
         return removedMove;
     }
@@ -108,6 +102,9 @@ function switchStarter() {
         }
     }
     displayStatsAndNextStarter();
+    if (moveHistory.length == 0) {
+        displayActivePlayer(nextStarter);
+    }
     return nextStarter;
 }
 
@@ -117,6 +114,10 @@ function switchActivePlayer(currentActivePlayer) {
         return activePlayer;
     }
     if (currentActivePlayer == 'O') {
+        activePlayer = 'X';
+        return activePlayer;
+    }
+    if (currentActivePlayer == undefined) {
         activePlayer = 'X';
         return activePlayer;
     }

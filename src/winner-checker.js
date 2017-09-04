@@ -1,11 +1,8 @@
-var centralCoordinate = "22",
-    numberOfWinsX = 0,
+var numberOfWinsX = 0,
     numberOfWinsO = 0,
-    numberOfDraws = 0,
-    numberOfGames = 0;
+    numberOfDraws = 0;
 
 function getContentById(id) {
-    //return document.getElementById(id).innerHTML;
     return board[id.substring(0, 1) - 1][id.substring(1) - 1];
 }
 
@@ -31,7 +28,7 @@ function checkColumnsForIdenticalChars(column, playerChar) {
 }
 
 function checkDiagonalsForIdenticalChars(diagonal, playerChar) {
-    if (areCharsIdentical((2 - diagonal).toString() + "1", centralCoordinate, (2 + diagonal).toString() + "3", playerChar)) {
+    if (areCharsIdentical((2 - diagonal).toString() + "1", "22", (2 + diagonal).toString() + "3", playerChar)) {
         return true;
     }
     return false;
@@ -59,16 +56,15 @@ function displayStatsAndNextStarter() {
     document.getElementById("winsX").innerHTML = numberOfWinsX;
     document.getElementById("winsO").innerHTML = numberOfWinsO;
     document.getElementById("draws").innerHTML = numberOfDraws;
-    document.getElementById("games").innerHTML = numberOfGames;
+    document.getElementById("games").innerHTML = (numberOfWinsX + numberOfWinsO + numberOfDraws);
     document.getElementById("nextStarter").innerHTML = nextStarter;
 }
 
-function checkIfEndOfGame(playerChar, board) {
-    if (numberOfMoves >= 5) {
+function checkIfEndOfGame(playerChar) {
+    if (moveHistory.length >= 5) {
         for (var i = 1; i <= board.length; i++) {
             if (checkRowsForIdenticalChars(i, playerChar)) {
                 increaseNumberOfWins(playerChar);
-                numberOfGames++;
                 disableTheBoard();
                 displayStatsAndNextStarter();
                 setTimeout(function () { window.alert("Player " + playerChar + " won on row " + i + "!") }, 10);
@@ -79,7 +75,6 @@ function checkIfEndOfGame(playerChar, board) {
         for (var i = 1; i <= board[0].length; i++) {
             if (checkColumnsForIdenticalChars(i, playerChar)) {
                 increaseNumberOfWins(playerChar);
-                numberOfGames++;
                 disableTheBoard();
                 displayStatsAndNextStarter();
                 setTimeout(function () { alert("Player " + playerChar + " won on column " + i + "!") }, 10);
@@ -90,7 +85,6 @@ function checkIfEndOfGame(playerChar, board) {
         for (var i = -1; i <= 1; i += 2) {
             if (checkDiagonalsForIdenticalChars(i, playerChar)) {
                 increaseNumberOfWins(playerChar);
-                numberOfGames++;
                 disableTheBoard();
                 displayStatsAndNextStarter();
                 setTimeout(function () { window.alert("Player " + playerChar + " won on diagonal!") }, 10);
@@ -98,8 +92,7 @@ function checkIfEndOfGame(playerChar, board) {
                 return;
             }
         }
-        if (numberOfMoves == board.length * board[0].length) {
-            numberOfGames++;
+        if (moveHistory.length == board.length * board[0].length) {
             numberOfDraws++;
             disableTheBoard();
             displayStatsAndNextStarter();
