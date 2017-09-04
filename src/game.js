@@ -1,7 +1,7 @@
-var numberOfMoves = 0,
-    nextStarter,
+var numberOfMoves,
     activePlayer,
-    moveHistory = [];
+    nextStarter,
+    moveHistory;
 
 function begin() {
     startNewCompetition();
@@ -63,12 +63,12 @@ putChar = function () {
     this.className = activePlayer;
     numberOfMoves++;
     moveHistory.push(new singleMove(numberOfMoves, activePlayer, this.id));
-    checkIfEndOfGame(activePlayer);
-    switchActivePlayer();
+    this.onclick = null;
     displayActivePlayer();
     displayNumberOfMoves();
     displayMoveHistory();
-    this.onclick = null;
+    checkIfEndOfGame(activePlayer);
+    switchActivePlayer(activePlayer);
 }
 
 function singleMove(moveNumber, activePlayer, squareID) {
@@ -85,10 +85,11 @@ function undoMove() {
         square.innerHTML = "";
         square.onclick = putChar;
         numberOfMoves--;
-        switchActivePlayer();
+        switchActivePlayer(activePlayer);
         displayActivePlayer();
         displayNumberOfMoves();
         displayMoveHistory();
+        return removedMove;
     }
 }
 
@@ -101,15 +102,18 @@ function switchStarter() {
         }
     }
     displayStatsAndNextStarter();
+    return nextStarter;
 }
 
-function switchActivePlayer() {
-    if (activePlayer == 'X') {
-        activePlayer = 'O'
-        return activePlayer;
+function switchActivePlayer(currentActivePlayer) {
+    if (currentActivePlayer == 'X') {
+        currentActivePlayer = 'O'
+        activePlayer = currentActivePlayer;
+        return currentActivePlayer;
     }
-    if (activePlayer == 'O') {
-        activePlayer = 'X'
-        return activePlayer;
+    if (currentActivePlayer == 'O') {
+        currentActivePlayer = 'X'
+        activePlayer = currentActivePlayer;
+        return currentActivePlayer;
     }
 }
