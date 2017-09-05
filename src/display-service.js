@@ -6,7 +6,7 @@ function displayNumberOfMoves(numberOfMoves) {
     document.getElementById("numberOfPerformedMoves").innerHTML = numberOfMoves;
 }
 
-function displayMoveHistory() {
+function displayMoveHistory(moveHistory) {
     var stringMoveHistory = "";
     for (var i = 0; i < moveHistory.length; i++) {
         stringMoveHistory += moveHistory[i].moveNumber + ": ";
@@ -16,7 +16,7 @@ function displayMoveHistory() {
     document.getElementById("moveHistory").innerHTML = stringMoveHistory;
 }
 
-function displayBoard() {
+function displayBoard(board) {
     for (var i = 1; i <= board.length; i++) {
         for (j = 1; j <= board[i - 1].length; j++) {
             document.getElementById(i.toString() + j.toString()).innerHTML = board[i - 1][j - 1];
@@ -25,7 +25,7 @@ function displayBoard() {
     }
 }
 
-function displayStatsAndNextStarter() {
+function displayStatsAndNextStarter(nextStarter) {
     document.getElementById("winsX").innerHTML = numberOfWinsX;
     document.getElementById("winsO").innerHTML = numberOfWinsO;
     document.getElementById("draws").innerHTML = numberOfDraws;

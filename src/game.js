@@ -1,34 +1,35 @@
-var nextStarter,
-    moveHistory,
-    board,
     Game = function () {
 
-        var competitionInit = function () {
+        var board,
+            nextStarter,
+            moveHistory,
+
+        competitionInit = function () {
             numberOfWinsX = 0;
             numberOfWinsO = 0;
             numberOfDraws = 0;
             nextStarter = 'X';
             gameInit();
-        }
+        },
 
-        var startNewCompetition = function () {
+        startNewCompetition = function () {
             if (window.confirm("You are going to lose current competition results. Are you sure?")) {
                 competitionInit();
             }
-        }
+        },
 
-        var gameInit = function () {
+        gameInit = function () {
             board = [["", "", ""], ["", "", ""], ["", "", ""]];
             enableEmptyCellsOfBoard();
             moveHistory = [];
-            displayMoveHistory();
+            displayMoveHistory(moveHistory);
             displayNumberOfMoves(moveHistory.length);
             displayActivePlayer(nextStarter);
-            displayStatsAndNextStarter();
-            displayBoard();
-        }
+            displayStatsAndNextStarter(nextStarter);
+            displayBoard(board);
+        },
 
-        var putChar = function () {
+        putChar = function () {
             var activePlayer;
             if (moveHistory.length == 0) {
                 activePlayer = nextStarter;
@@ -38,18 +39,18 @@ var nextStarter,
             board[this.id.substring(0, 1) - 1][this.id.substring(1) - 1] = activePlayer;
             moveHistory.push(new singleMove(moveHistory.length + 1, activePlayer, this.id));
             this.onclick = null;
-            var message = WinnerChecker.checkIfEndOfGame(activePlayer);
-            displayBoard();
+            var message = WinnerChecker.checkIfEndOfGame(activePlayer, board, nextStarter, moveHistory);
+            displayBoard(board);
             displayActivePlayer(switchActivePlayer(activePlayer));
             displayNumberOfMoves(moveHistory.length);
-            displayMoveHistory();
+            displayMoveHistory(moveHistory);
             if (message != undefined) {
                 setTimeout(function () { window.alert(message) }, 100);
             }
             return moveHistory;
-        }
+        },
 
-        var undoMove = function () {
+        undoMove = function () {
             if (moveHistory.length > 0) {
                 var removedMove = moveHistory.pop();
                 if (removedMove.isWin === true) {
@@ -64,16 +65,16 @@ var nextStarter,
                 var squareID = removedMove.squareID;
                 board[squareID.substring(0, 1) - 1][squareID.substring(1) - 1] = "";
                 enableEmptyCellsOfBoard();
-                displayBoard();
+                displayBoard(board);
                 displayActivePlayer(removedMove.player);
                 displayNumberOfMoves(moveHistory.length);
-                displayMoveHistory();
-                displayStatsAndNextStarter();
+                displayMoveHistory(moveHistory);
+                displayStatsAndNextStarter(nextStarter);
                 return moveHistory;
             }
-        }
+        },
 
-        var switchStarter = function () {
+        switchStarter = function () {
             if (nextStarter == 'X') {
                 nextStarter = 'O';
             } else if (nextStarter == 'O') {
@@ -81,12 +82,12 @@ var nextStarter,
             } else {
                 nextStarter = 'X';
             }
-            displayStatsAndNextStarter();
+            displayStatsAndNextStarter(nextStarter);
             if (moveHistory.length == 0) {
                 displayActivePlayer(nextStarter);
             }
             return nextStarter;
-        }
+        };
 
         function switchActivePlayer(currentActivePlayer) {
             if (currentActivePlayer == 'X') {
@@ -114,7 +115,7 @@ var nextStarter,
             putChar: putChar,
             undoMove: undoMove,
             switchStarter: switchStarter
-        };
+        }
 
     }();
 
@@ -123,5 +124,5 @@ function singleMove(moveNumber, activePlayer, squareID) {
         this.player = activePlayer,
         this.squareID = squareID,
         this.isWin = false;
-}
+};
 
