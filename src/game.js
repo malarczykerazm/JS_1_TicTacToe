@@ -26,21 +26,13 @@ function startNewCompetition() {
 
 function gameInit() {
     board = [["", "", ""], ["", "", ""], ["", "", ""]];
+    enableEmptyCellsOfBoard();
     moveHistory = [];
     displayMoveHistory();
     displayNumberOfMoves(moveHistory.length);
     displayActivePlayer(nextStarter);
     displayStatsAndNextStarter();
-    generateEmptyBoard();
     displayBoard();
-}
-
-function generateEmptyBoard() {
-    for (var i = 1; i <= board.length; i++) {
-        for (var j = 1; j <= board[i - 1].length; j++) {
-            document.getElementById(i.toString() + j.toString()).onclick = putChar;
-        }
-    }
 }
 
 function singleMove(moveNumber, activePlayer, squareID) {
@@ -63,7 +55,7 @@ putChar = function () {
     var addedMove = new singleMove(moveHistory.length + 1, activePlayer, this.id);
     moveHistory.push(addedMove);
     this.onclick = null;
-    var message = checkIfEndOfGame(activePlayer);
+    var message = (new WinnerChecker()).checkIfEndOfGame(activePlayer);
     displayActivePlayer(switchActivePlayer(activePlayer));
     displayNumberOfMoves(moveHistory.length);
     displayMoveHistory();
@@ -120,4 +112,14 @@ function switchStarter() {
         displayActivePlayer(nextStarter);
     }
     return nextStarter;
+}
+        
+function enableEmptyCellsOfBoard() {
+    for (var i = 1; i <= board.length; i++) {
+        for (var j = 1; j <= board[i - 1].length; j++) {
+            if (board[i - 1][j - 1] == "") {
+                document.getElementById(i.toString() + j.toString()).onclick = putChar;
+            }
+        }
+    }
 }
