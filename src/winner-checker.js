@@ -2,12 +2,12 @@ var numberOfWinsX = 0,
     numberOfWinsO = 0,
     numberOfDraws = 0;
 
-function getContentById(id) {
+function getCellContentById(id) {
     return board[id.substring(0, 1) - 1][id.substring(1) - 1];
 }
 
 function areCharsIdentical(a, b, c, playerChar) {
-    if (getContentById(a) == playerChar && getContentById(b) == playerChar && getContentById(c) == playerChar) {
+    if (getCellContentById(a) == playerChar && getCellContentById(b) == playerChar && getCellContentById(c) == playerChar) {
         return true;
     }
     return false;
@@ -66,40 +66,35 @@ function checkIfEndOfGame(playerChar) {
             if (checkRowsForIdenticalChars(i, playerChar)) {
                 increaseNumberOfWins(playerChar);
                 disableTheBoard();
+                moveHistory[moveHistory.length - 1].isWin = true;
                 displayStatsAndNextStarter();
-                document.getElementById("moveUndo").disabled = true;
-                setTimeout(function () { window.alert("Player " + playerChar + " won on row " + i + "!") }, 1);
-                return;
+                return ("Player " + playerChar + " won on row " + i + "!");
             }
         }
         for (var i = 1; i <= board[0].length; i++) {
             if (checkColumnsForIdenticalChars(i, playerChar)) {
                 increaseNumberOfWins(playerChar);
                 disableTheBoard();
+                moveHistory[moveHistory.length - 1].isWin = true;
                 displayStatsAndNextStarter();
-                document.getElementById("moveUndo").disabled = true;
-                setTimeout(function () { alert("Player " + playerChar + " won on column " + i + "!") }, 1);
-                return;
+                return ("Player " + playerChar + " won on column " + i + "!");
             }
         }
         for (var i = -1; i <= 1; i += 2) {
             if (checkDiagonalsForIdenticalChars(i, playerChar)) {
                 increaseNumberOfWins(playerChar);
                 disableTheBoard();
+                moveHistory[moveHistory.length - 1].isWin = true;
                 displayStatsAndNextStarter();
-                document.getElementById("moveUndo").disabled = true;
-                setTimeout(function () { window.alert("Player " + playerChar + " won on diagonal!") }, 1);
-                return;
+                return ("Player " + playerChar + " won on diagonal!");
             }
         }
         if (moveHistory.length == board.length * board[0].length) {
             numberOfDraws++;
             disableTheBoard();
             displayStatsAndNextStarter();
-            document.getElementById("moveUndo").disabled = true;
-            setTimeout(function () { window.alert("Draw!") }, 1);
-            return;
+            return ("Draw!");
         }
-        return;
     }
+    return;
 }
