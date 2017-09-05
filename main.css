@@ -47,6 +47,7 @@ td:disabled {
 h2 {
   padding-top: 0px;
   line-height: 75%;
+  margin-bottom: 15px;
   font-style: italic;
   color: green;
 }

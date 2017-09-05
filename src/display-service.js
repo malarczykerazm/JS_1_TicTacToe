@@ -20,6 +20,7 @@ function displayBoard() {
     for (var i = 1; i <= board.length; i++) {
         for (j = 1; j <= board[i - 1].length; j++) {
             document.getElementById(i.toString() + j.toString()).innerHTML = board[i - 1][j - 1];
+            document.getElementById(i.toString() + j.toString()).className = board[i - 1][j - 1];
         }
     }
 }

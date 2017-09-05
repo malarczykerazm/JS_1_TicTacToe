@@ -5,21 +5,21 @@
   <link rel="stylesheet" href=".\main.css" type="text/css">
 </head>
 
-<body onload="begin();">
+<body onload="Game.competitionInit();">
   <div class="container">
 
     <div class="top">
       <h2><small><font color="grey">Welcome to</font></small>
         <br> tic tac toe
-        <br> <small><font color="grey">let's play a game</font></small></h2>
+        <br> <small><font color="grey">let's play the game</font></small></h2>
     </div>
 
     <div class="col">
       Menu<br>
-      <input type="button" class="button" value="Restart the competition" onclick="startNewCompetition();"><br>
-      <input type="button" class="button" value="Reset this game" onclick="gameInit();"><br>
-      <input type="button" class="button" value="Undo last move" onclick="undoMove();"><br>
-      <input type="button" class="button" value="Switch starting player" onclick="switchStarter();"><br><br>
+      <input type="button" class="button" value="Restart the competition" onclick="Game.startNewCompetition();"><br>
+      <input type="button" class="button" value="Reset this game" onclick="Game.gameInit();"><br>
+      <input type="button" class="button" value="Undo last move" onclick="Game.undoMove();"><br>
+      <input type="button" class="button" value="Switch starting player" onclick="Game.switchStarter();"><br><br>
       Competition stats:<br>
       <div id="stats">
         X wins:
