@@ -3,7 +3,7 @@ var nextStarter,
     board,
     Game = function () {
 
-        var competitionInit = function() {
+        var competitionInit = function () {
             numberOfWinsX = 0;
             numberOfWinsO = 0;
             numberOfDraws = 0;
@@ -11,13 +11,13 @@ var nextStarter,
             gameInit();
         }
 
-       var startNewCompetition = function() {
+        var startNewCompetition = function () {
             if (window.confirm("You are going to lose current competition results. Are you sure?")) {
                 competitionInit();
             }
         }
 
-        var gameInit = function() {
+        var gameInit = function () {
             board = [["", "", ""], ["", "", ""], ["", "", ""]];
             enableEmptyCellsOfBoard();
             moveHistory = [];
@@ -55,7 +55,7 @@ var nextStarter,
                 if (removedMove.isWin === true) {
                     if (removedMove.player == 'X') {
                         numberOfWinsX--;
-                    } else {
+                    } else if (removedMove.player == 'O') {
                         numberOfWinsO--;
                     }
                 } else if (removedMove.moveNumber == 9) {
@@ -75,24 +75,17 @@ var nextStarter,
 
         var switchStarter = function () {
             if (nextStarter == 'X') {
-                nextStarter = 'O'
+                nextStarter = 'O';
+            } else if (nextStarter == 'O') {
+                nextStarter = 'X';
             } else {
-                if (nextStarter == 'O') {
-                    nextStarter = 'X'
-                }
+                nextStarter = 'X';
             }
             displayStatsAndNextStarter();
             if (moveHistory.length == 0) {
                 displayActivePlayer(nextStarter);
             }
             return nextStarter;
-        }
-
-        function singleMove(moveNumber, activePlayer, squareID) {
-            this.moveNumber = moveNumber,
-                this.player = activePlayer,
-                this.squareID = squareID,
-                this.isWin = false;
         }
 
         function switchActivePlayer(currentActivePlayer) {
@@ -121,8 +114,14 @@ var nextStarter,
             putChar: putChar,
             undoMove: undoMove,
             switchStarter: switchStarter
-            };
+        };
 
     }();
 
-    
+function singleMove(moveNumber, activePlayer, squareID) {
+    this.moveNumber = moveNumber,
+        this.player = activePlayer,
+        this.squareID = squareID,
+        this.isWin = false;
+}
+
