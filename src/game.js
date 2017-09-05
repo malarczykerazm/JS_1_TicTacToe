@@ -1,8 +1,8 @@
-    Game = function () {
+Game = function () {
 
-        var board,
-            nextStarter,
-            moveHistory,
+    var board,
+        nextStarter,
+        moveHistory,
 
         competitionInit = function () {
             numberOfWinsX = 0;
@@ -29,19 +29,23 @@
             displayBoard(board);
         },
 
-        putChar = function () {
+        putChar = function (square) {
             var activePlayer;
             if (moveHistory.length == 0) {
                 activePlayer = nextStarter;
             } else {
                 activePlayer = switchActivePlayer(moveHistory[moveHistory.length - 1].player);
             }
-            board[this.id.substring(0, 1) - 1][this.id.substring(1) - 1] = activePlayer;
-            moveHistory.push(new singleMove(moveHistory.length + 1, activePlayer, this.id));
-            this.onclick = null;
-            var message = WinnerChecker.checkIfEndOfGame(activePlayer, board, nextStarter, moveHistory);
+            var message;
+            if (board[square.id.substring(0, 1) - 1][square.id.substring(1) - 1] == "") {
+                board[square.id.substring(0, 1) - 1][square.id.substring(1) - 1] = activePlayer;
+                moveHistory.push(new singleMove(moveHistory.length + 1, activePlayer, square.id));
+                square.onclick = null;
+                message = WinnerChecker.checkIfEndOfGame(activePlayer, board, nextStarter, moveHistory);
+                displayActivePlayer(switchActivePlayer(activePlayer));
+            }
+            displayActivePlayer(activePlayer);
             displayBoard(board);
-            displayActivePlayer(switchActivePlayer(activePlayer));
             displayNumberOfMoves(moveHistory.length);
             displayMoveHistory(moveHistory);
             if (message != undefined) {
@@ -70,8 +74,8 @@
                 displayNumberOfMoves(moveHistory.length);
                 displayMoveHistory(moveHistory);
                 displayStatsAndNextStarter(nextStarter);
-                return moveHistory;
             }
+            return moveHistory;
         },
 
         switchStarter = function () {
@@ -89,35 +93,35 @@
             return nextStarter;
         };
 
-        function switchActivePlayer(currentActivePlayer) {
-            if (currentActivePlayer == 'X') {
-                return 'O';
-            } else if (currentActivePlayer == 'O') {
-                return 'X';
-            } else {
-                return 'X';
-            }
+    function switchActivePlayer(currentActivePlayer) {
+        if (currentActivePlayer == 'X') {
+            return 'O';
+        } else if (currentActivePlayer == 'O') {
+            return 'X';
+        } else {
+            return 'X';
         }
+    }
 
-        function enableEmptyCellsOfBoard() {
-            for (var i = 1; i <= board.length; i++) {
-                for (var j = 1; j <= board[i - 1].length; j++) {
-                    if (board[i - 1][j - 1] == "") {
-                        document.getElementById(i.toString() + j.toString()).onclick = putChar;
-                    }
+    function enableEmptyCellsOfBoard() {
+        for (var i = 1; i <= board.length; i++) {
+            for (var j = 1; j <= board[i - 1].length; j++) {
+                if (board[i - 1][j - 1] == "") {
+                    document.getElementById(i.toString() + j.toString()).onclick = Game.putChar.bind(this, document.getElementById(i.toString() + j.toString()));
                 }
             }
         }
-        return {
-            competitionInit: competitionInit,
-            startNewCompetition: startNewCompetition,
-            gameInit: gameInit,
-            putChar: putChar,
-            undoMove: undoMove,
-            switchStarter: switchStarter
-        }
+    }
+    return {
+        competitionInit: competitionInit,
+        startNewCompetition: startNewCompetition,
+        gameInit: gameInit,
+        putChar: putChar,
+        undoMove: undoMove,
+        switchStarter: switchStarter
+    }
 
-    }();
+}();
 
 function singleMove(moveNumber, activePlayer, squareID) {
     this.moveNumber = moveNumber,
