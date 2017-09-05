@@ -16,23 +16,53 @@ describe('Should', function () {
 
 describe('Should switch starter', function () {
 
-    it('from X to O', function () {
+    it('from X to O by the first move', function () {
+        //given
         nextStarter = 'X';
         moveHistory = [];
-        var displayStatsAndNextStarterMock = mock(displayStatsAndNextStarter());
-        var displayActivePlayerMock = mock(displayActivePlayer('O'));
-        expect(displayStatsAndNextStarterMock).toHaveBeenCalled();
-        expect(displayActivePlayerMock).toHaveBeenCalled();
+        //when
+        spyOn(window,'displayStatsAndNextStarter').and.returnValue(null);
+        spyOn(window,'displayActivePlayer').and.returnValue(null);
+        //then
+        expect(displayStatsAndNextStarter()).toBe(null);
+        expect(displayActivePlayer(nextStarter)).toBe(null);
         expect(switchStarter()).toBe('O');
     });
 
-    it('from O to X', function () {
+    it('from O to X by the first move', function () {
+        //given
         nextStarter = 'O';
         moveHistory = [];
-        var displayStatsAndNextStarterMock = mock(displayStatsAndNextStarter());
-        var displayActivePlayerMock = mock(displayActivePlayer('X'));
-        expect(displayStatsAndNextStarterMock).toHaveBeenCalled();
-        expect(displayActivePlayerMock).toHaveBeenCalled();
+        //when
+        spyOn(window,'displayStatsAndNextStarter').and.returnValue(null);
+        spyOn(window,'displayActivePlayer').and.returnValue(null);
+        //then
+        expect(displayStatsAndNextStarter()).toBe(null);
+        expect(displayActivePlayer(nextStarter)).toBe(null);
+        expect(switchStarter()).toBe('X');
+    });
+    
+    it('from X to O by the nth move', function () {
+        //given
+        nextStarter = 'X';
+        moveHistory = [];
+        moveHistory.push(new singleMove(1, 'X', "11"));
+        //when
+        spyOn(window,'displayStatsAndNextStarter').and.returnValue(null);
+        //then
+        expect(displayStatsAndNextStarter()).toBe(null);
+        expect(switchStarter()).toBe('O');
+    });
+    
+    it('from O to X by the nth move', function () {
+        //given
+        nextStarter = 'O';
+        moveHistory = [];
+        moveHistory.push(new singleMove(1, 'X', "11"));
+        //when
+        spyOn(window,'displayStatsAndNextStarter').and.returnValue(null);
+        //then
+        expect(displayStatsAndNextStarter()).toBe(null);
         expect(switchStarter()).toBe('X');
     });
 

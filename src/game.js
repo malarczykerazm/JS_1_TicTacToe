@@ -36,7 +36,7 @@ function gameInit() {
 }
 
 function displayActivePlayer(activePlayer) {
-    document.getElementById("nextPlayer").innerHTML = activePlayer;
+    document.getElementById("activePlayer").innerHTML = activePlayer;
 }
 
 function displayNumberOfMoves(numberOfMoves) {
@@ -88,15 +88,15 @@ putChar = function () {
 function singleMove(moveNumber, activePlayer, squareID) {
     this.moveNumber = moveNumber,
         this.player = activePlayer,
-        this.squareID = squareID;
+        this.squareID = squareID,
         this.isWin = false;
 }
 
 function undoMove() {
     if (moveHistory.length > 0) {
         var removedMove = moveHistory.pop();
-        if(removedMove.isWin === true) {
-            if(removedMove.player == 'X') {
+        if (removedMove.isWin === true) {
+            if (removedMove.player == 'X') {
                 numberOfWinsX--;
             } else {
                 numberOfWinsO--;
