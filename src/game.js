@@ -32,34 +32,22 @@ function gameInit() {
     displayActivePlayer(nextStarter);
     displayStatsAndNextStarter();
     generateEmptyBoard();
-    document.getElementById("moveUndo").disabled = false;
-}
-
-function displayActivePlayer(activePlayer) {
-    document.getElementById("activePlayer").innerHTML = activePlayer;
-}
-
-function displayNumberOfMoves(numberOfMoves) {
-    document.getElementById("numberOfPerformedMoves").innerHTML = numberOfMoves;
-}
-
-function displayMoveHistory() {
-    var stringMoveHistory = "";
-    for (i = 0; i < moveHistory.length; i++) {
-        stringMoveHistory += moveHistory[i].moveNumber + ": ";
-        stringMoveHistory += "player " + moveHistory[i].player + ", ";
-        stringMoveHistory += "on square: " + moveHistory[i].squareID + "<br>";
-    }
-    document.getElementById("moveHistory").innerHTML = stringMoveHistory;
+    displayBoard();
 }
 
 function generateEmptyBoard() {
-    for (i = 1; i <= board.length; i++) {
-        for (j = 1; j <= board[i - 1].length; j++) {
-            document.getElementById(i.toString() + j.toString()).innerHTML = board[i - 1][j - 1];
+    for (var i = 1; i <= board.length; i++) {
+        for (var j = 1; j <= board[i - 1].length; j++) {
             document.getElementById(i.toString() + j.toString()).onclick = putChar;
         }
     }
+}
+
+function singleMove(moveNumber, activePlayer, squareID) {
+    this.moveNumber = moveNumber,
+        this.player = activePlayer,
+        this.squareID = squareID,
+        this.isWin = false;
 }
 
 putChar = function () {
@@ -85,13 +73,6 @@ putChar = function () {
     return addedMove;
 }
 
-function singleMove(moveNumber, activePlayer, squareID) {
-    this.moveNumber = moveNumber,
-        this.player = activePlayer,
-        this.squareID = squareID,
-        this.isWin = false;
-}
-
 function undoMove() {
     if (moveHistory.length > 0) {
         var removedMove = moveHistory.pop();
@@ -107,7 +88,7 @@ function undoMove() {
         var squareID = removedMove.squareID;
         board[squareID.substring(0, 1) - 1][squareID.substring(1) - 1] = "";
         document.getElementById(removedMove.squareID).innerHTML = "";
-        document.getElementById(removedMove.squareID).onclick = putChar;
+        enableEmptyCellsOfBoard();
         displayActivePlayer(removedMove.player);
         displayNumberOfMoves(moveHistory.length);
         displayMoveHistory();

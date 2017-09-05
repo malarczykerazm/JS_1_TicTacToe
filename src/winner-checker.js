@@ -44,20 +44,22 @@ function increaseNumberOfWins(playerChar) {
     }
 }
 
-function disableTheBoard() {
-    for (i = 1; i <= board.length; i++) {
-        for (j = 1; j <= board[i - 1].length; j++) {
+function disableBoard() {
+    for (var i = 1; i <= board.length; i++) {
+        for (var j = 1; j <= board[i - 1].length; j++) {
             document.getElementById(i.toString() + j.toString()).onclick = null;
         }
     }
 }
 
-function displayStatsAndNextStarter() {
-    document.getElementById("winsX").innerHTML = numberOfWinsX;
-    document.getElementById("winsO").innerHTML = numberOfWinsO;
-    document.getElementById("draws").innerHTML = numberOfDraws;
-    document.getElementById("games").innerHTML = (numberOfWinsX + numberOfWinsO + numberOfDraws);
-    document.getElementById("nextStarter").innerHTML = nextStarter;
+function enableEmptyCellsOfBoard() {
+    for (var i = 1; i <= board.length; i++) {
+        for (var j = 1; j <= board[i - 1].length; j++) {
+            if (board[i - 1][j - 1] == "") {
+                document.getElementById(i.toString() + j.toString()).onclick = putChar;
+            }
+        }
+    }
 }
 
 function checkIfEndOfGame(playerChar) {
@@ -65,7 +67,7 @@ function checkIfEndOfGame(playerChar) {
         for (var i = 1; i <= board.length; i++) {
             if (checkRowsForIdenticalChars(i, playerChar)) {
                 increaseNumberOfWins(playerChar);
-                disableTheBoard();
+                disableBoard();
                 moveHistory[moveHistory.length - 1].isWin = true;
                 displayStatsAndNextStarter();
                 return ("Player " + playerChar + " won on row " + i + "!");
@@ -74,7 +76,7 @@ function checkIfEndOfGame(playerChar) {
         for (var i = 1; i <= board[0].length; i++) {
             if (checkColumnsForIdenticalChars(i, playerChar)) {
                 increaseNumberOfWins(playerChar);
-                disableTheBoard();
+                disableBoard();
                 moveHistory[moveHistory.length - 1].isWin = true;
                 displayStatsAndNextStarter();
                 return ("Player " + playerChar + " won on column " + i + "!");
@@ -83,7 +85,7 @@ function checkIfEndOfGame(playerChar) {
         for (var i = -1; i <= 1; i += 2) {
             if (checkDiagonalsForIdenticalChars(i, playerChar)) {
                 increaseNumberOfWins(playerChar);
-                disableTheBoard();
+                disableBoard();
                 moveHistory[moveHistory.length - 1].isWin = true;
                 displayStatsAndNextStarter();
                 return ("Player " + playerChar + " won on diagonal!");
@@ -91,7 +93,7 @@ function checkIfEndOfGame(playerChar) {
         }
         if (moveHistory.length == board.length * board[0].length) {
             numberOfDraws++;
-            disableTheBoard();
+            disableBoard();
             displayStatsAndNextStarter();
             return ("Draw!");
         }
