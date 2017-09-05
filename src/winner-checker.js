@@ -40,35 +40,31 @@ var numberOfWinsX,
                 }
             }
             return;
-        }
+        };
 
-        function getCellContentById(id, board) {
-            return board[id.substring(0, 1) - 1][id.substring(1) - 1];
-        }
-
-        function areCharsIdentical(a, b, c, playerChar, board) {
-            if (getCellContentById(a, board) == playerChar && getCellContentById(b, board) == playerChar && getCellContentById(c, board) == playerChar) {
+        function areCharsIdentical(i1, j1, i2, j2, i3, j3, playerChar, board) {
+            if (board[i1 - 1][j1 - 1] == playerChar && board[i2 - 1][j2 - 1] == playerChar && board[i3 - 1][j3 - 1] == playerChar) {
                 return true;
             }
             return false;
         }
 
         function checkRowsForIdenticalChars(row, playerChar, board) {
-            if (areCharsIdentical(row.toString() + "1", row.toString() + "2", row.toString() + "3", playerChar, board)) {
+            if (areCharsIdentical(row, 1, row, 2, row, 3, playerChar, board)) {
                 return true;
             }
             return false;
         }
 
         function checkColumnsForIdenticalChars(column, playerChar, board) {
-            if (areCharsIdentical("1" + column.toString(), "2" + column.toString(), "3" + column.toString(), playerChar, board)) {
+            if (areCharsIdentical(1, column, 2, column, 3, column, playerChar, board)) {
                 return true;
             }
             return false;
         }
 
         function checkDiagonalsForIdenticalChars(diagonal, playerChar, board) {
-            if (areCharsIdentical((2 - diagonal).toString() + "1", "22", (2 + diagonal).toString() + "3", playerChar, board)) {
+            if (areCharsIdentical((2 - diagonal), 1, 2, 2, (2 + diagonal), 3, playerChar, board)) {
                 return true;
             }
             return false;
@@ -77,10 +73,8 @@ var numberOfWinsX,
         function increaseNumberOfWins(playerChar) {
             if (playerChar == 'X') {
                 numberOfWinsX++;
-            } else {
-                if (playerChar == 'O') {
-                    numberOfWinsO++;
-                }
+            } else if (playerChar == 'O') {
+                numberOfWinsO++;
             }
         }
 

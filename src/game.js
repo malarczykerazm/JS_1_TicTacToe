@@ -9,12 +9,12 @@
             numberOfWinsO = 0;
             numberOfDraws = 0;
             nextStarter = 'X';
-            gameInit();
+            Game.gameInit();
         },
 
         startNewCompetition = function () {
             if (window.confirm("You are going to lose current competition results. Are you sure?")) {
-                competitionInit();
+                Game.competitionInit();
             }
         },
 
@@ -125,4 +125,3 @@ function singleMove(moveNumber, activePlayer, squareID) {
         this.squareID = squareID,
         this.isWin = false;
 };
-
