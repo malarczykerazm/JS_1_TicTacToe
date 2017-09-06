@@ -44,7 +44,6 @@ Game = function () {
                 message = WinnerChecker.checkIfEndOfGame(activePlayer, board, nextStarter, moveHistory);
                 displayActivePlayer(switchActivePlayer(activePlayer));
             }
-            displayActivePlayer(activePlayer);
             displayBoard(board);
             displayNumberOfMoves(moveHistory.length);
             displayMoveHistory(moveHistory);
